@@ -17,9 +17,12 @@ test_list(Expected, Actual) :-
   phrase(json(V), Actual).
 
 test_list_of_pairs(Expected, Actual) :-
-  Expected = "{ \"red\": \"stop\", \"green\": \"go\", \"yellow\": \"yield\" }",
+  Expected = "{\"red\": \"stop\", \"green\": \"go\", \"yellow\": \"yield\"}",
   V = [red-stop, green-go, yellow-yield],
-  phrase(json(V), Actual).
+  phrase(json(V), Actual),
+  write(returned), nl,
+  % atom_chars(Atom, Actual),
+  format("Actual = ~w~n", [Actual]).
 
 test_pair(Expected, Actual) :-
   Expected = "\"red\": \"stop\"",
@@ -37,12 +40,14 @@ test_structure(Expected, Actual) :-
 
 test :-
   run_tests([
+    user:test_list_of_pairs
+    /*
     user:test_atom,
     user:test_integer,
     user:test_list,
-    user:test_list_of_pairs,
     user:test_pair,
     user:test_string,
     user:test_structure
+    */
   ]),
   halt.

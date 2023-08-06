@@ -13,9 +13,9 @@
 :- use_module(strings).
 
 % Use this line to suppress logging.
-log(_, _).
+% log(_, _).
 % Use this line to enable logging.
-% log(Format, Arguments) :- format(Format, Arguments).
+log(Format, Arguments) :- format(Format, Arguments).
 
 % Technically a double-quoted string is a list of character atoms,
 % but we want to consider that to be a string.
@@ -157,5 +157,5 @@ values_json(Values, Json) :-
   maplist(value_json, Values, Jsons),
   log("values_json: Jsons = ~w~n", [Jsons]),
   % Create string that is a comma-separated list of the JSON values.
-  string_list(Json, ',', Jsons),
+  string_list(Json, ', ', Jsons),
   log("values_json: Json = ~w~n", [Json]).

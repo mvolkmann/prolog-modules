@@ -20,8 +20,7 @@ test_list(Expected, Actual) :-
 test_list_of_pairs(Expected, Actual) :-
   Expected = "{\"red\": \"stop\", \"green\": \"go\", \"yellow\": \"yield\"}",
   V = [red-stop, green-go, yellow-yield],
-  phrase(json(V), Actual),
-  format("Actual = ~w~n", [Actual]).
+  phrase(json(V), Actual).
 
 test_pair(Expected, Actual) :-
   Expected = "\"red\": \"stop\"",
@@ -44,7 +43,7 @@ test :-
     user:test_pair,
     user:test_list,
     user:test_string,
-    user:test_structure
-    % user:test_list_of_pairs
+    user:test_structure,
+    user:test_list_of_pairs
   ]),
   halt.

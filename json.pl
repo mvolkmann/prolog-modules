@@ -46,22 +46,18 @@ json(Integer) -->
 % V = [foo, bar, baz], phrase(json(V), C), atom_chars(A, C).
 % A = '["foo","bar","baz"]'
 json(List) -->
-  { \+ is_list_of_pairs(List) },
-  "[",
   {
     is_list_not_chars(List),
-
+    \+ is_list_of_pairs(List),
     log("json List: List = ~w~n", [List]),
     values_json(List, Json),
     log("json List: Json = ~w~n", [Json])
   },
-  seq(Json),
-  "]".
+  "[", seq(Json), "]".
 
 % To test this, enter something like the following and see the value of A.
 % V = foo-bar, phrase(json(V), J).
 % J = "\"foo\": \"bar\""
-% TODO: Check for list containing only pairs and generate a JSON object.
 json(Pair) -->
   {
     is_pair(Pair),
@@ -75,11 +71,13 @@ json(Pair) -->
 % V = [red-stop, green-go, yellow-yield], phrase(json(V), C), atom_chars(A, C).
 % A = '{"red": "stop", "green": "go", "yellow": "yield"}'
 json(Pairs) -->
-  { is_list_of_pairs(Pairs) },
-  "{",
-  { values_json(Pairs, Json) },
-  seq(Json),
-  "}".
+  {
+    is_list_of_pairs(Pairs),
+    log("json Pairs: Pairs = ~w~n", [Pairs]),
+    values_json(Pairs, Json),
+    log("json Pairs: Json = ~w~n", [Json])
+  },
+  "[", seq(Json), "]".
 
 % To test this, enter something like the following and see the value of A.
 % V = a(b,c), phrase(json(V), C), atom_chars(A, C).

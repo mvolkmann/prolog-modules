@@ -1,6 +1,7 @@
 :- module(strings, [
     chars_capitalized/2,
     filename_extension/3,
+    join/3,
     predicate_namespace_name/3,
     repeat/3,
     split/4,
@@ -52,6 +53,18 @@ split(S, Delimiter, Prefix, Suffix) :-
     once(append(Prefix, [Delimiter|Suffix], S)),
     (Prefix = S, Suffix = "")
   ).
+
+% string_list below only handles single character atom delimiters.
+% This handles string delimiters of any length.
+join([], _, []).
+join([T], _, T).
+join(L, Delimiter, R) :-
+  length(L, Length),
+  Length > 1,
+  [H|T] = L,
+  append(H, Delimiter, R0),
+  join(T, Delimiter, R1),
+  append(R0, R1, R).
 
 % This relates a string to list of string parts
 % obtained by splitting on a given delimiter

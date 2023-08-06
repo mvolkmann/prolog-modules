@@ -12,9 +12,9 @@
 :- use_module(types).
 
 % Use this line to suppress logging.
-% log(_, _).
+log(_, _).
 % Use this line to enable logging.
-log(Format, Arguments) :- format(Format, Arguments).
+% log(Format, Arguments) :- format(Format, Arguments).
 
 % To test this, enter something like the following and see the value of A.
 % V = foo, phrase(json(V), C), atom_chars(A, C).
@@ -77,7 +77,7 @@ json(Pairs) -->
     values_json(Pairs, Json),
     log("json Pairs: Json = ~w~n", [Json])
   },
-  "[", seq(Json), "]".
+  "{", seq(Json), "}".
 
 % To test this, enter something like the following and see the value of A.
 % V = a(b,c), phrase(json(V), C), atom_chars(A, C).
@@ -148,5 +148,6 @@ values_json(Values, Json) :-
   maplist(value_json, Values, Jsons),
   log("values_json: Jsons = ~w~n", [Jsons]),
   % Create string that is a comma-separated list of the JSON values.
-  string_list(Json, ',', Jsons),
+  % string_list(Json, ',', Jsons),
+  join(Jsons, ", ", Json),
   log("values_json: Json = ~w~n", [Json]).

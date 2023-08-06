@@ -11,7 +11,8 @@ message(Name, Expected, Actual, Msg) :-
   ( Actual == Expected ->
     Msg = ""
   ; phrase(format_(
-      "~s expected ~w but was ~w",
+      % "~s expected ~w but was ~w",
+      "~s expected ~s but was ~s",
       [Name, Expected, Actual]
     ), Msg)
   ).

@@ -18,6 +18,21 @@ filename_extension1(Expected, Actual) :-
   filename_extension(S, Filename, Extension),
   Actual = [Filename, Extension].
 
+join1(Expected, Actual) :-
+  Expected = "",
+  List = [""],
+  join(List, "DELIM", Actual).
+
+join2(Expected, Actual) :-
+  Expected = "foo",
+  List = ["foo"],
+  join(List, "DELIM", Actual).
+
+join3(Expected, Actual) :-
+  Expected = "fooDELIMbarDELIMbaz",
+  List = ["foo", "bar", "baz"],
+  join(List, "DELIM", Actual).
+
 predicate_namespace_name1(Expected, Actual) :-
   Expected = ["", "bar"], % no namespace
   predicate_namespace_name(bar, Namespace, Name),
@@ -44,7 +59,17 @@ split2(Expected, Actual) :-
   split(S, ',', Prefix, Suffix),
   Actual = [Prefix, Suffix].
 
-string_list(Expected, Actual) :-
+string_list1(Expected, Actual) :-
+  Expected = [],
+  S = "",
+  string_list(S, ',', Actual).
+
+string_list2(Expected, Actual) :-
+  Expected = ["foo"],
+  S = "foo",
+  string_list(S, ',', Actual).
+
+string_list3(Expected, Actual) :-
   Expected = ["foo", "bar", "baz"],
   S = "foo,bar,baz",
   string_list(S, ',', Actual).
@@ -56,11 +81,16 @@ test :-
     user:chars_capitalized1,
     user:chars_capitalized2,
     user:filename_extension1,
+    user:join1,
+    user:join2,
+    user:join3,
     user:predicate_namespace_name1,
     user:predicate_namespace_name2,
     user:repeat1,
     user:split1,
     user:split2,
-    user:string_list
+    user:string_list1,
+    user:string_list2,
+    user:string_list3
   ]),
   halt.

@@ -13,7 +13,7 @@ test_integer(Expected, Actual) :-
   phrase(json(V), Actual).
 
 test_list(Expected, Actual) :-
-  Expected = "[\"foo\",\"bar\",\"baz\"]",
+  Expected = "[\"foo\", \"bar\", \"baz\"]",
   V = [foo, bar, baz],
   phrase(json(V), Actual).
 
@@ -32,7 +32,7 @@ test_string(Expected, Actual) :-
   phrase(json(V), Actual).
 
 test_structure(Expected, Actual) :-
-  Expected = "{\"_functor\": \"a/2\", \"_args\": [\"b\",\"c\"]}",
+  Expected = "{\"_functor\": \"a/2\", \"_args\": [\"b\", \"c\"]}",
   V = a(b, c),
   phrase(json(V), Actual).
 
@@ -42,8 +42,8 @@ test :-
     user:test_integer,
     user:test_pair,
     user:test_list,
+    user:test_list_of_pairs,
     user:test_string,
-    user:test_structure,
-    user:test_list_of_pairs
+    user:test_structure
   ]),
   halt.

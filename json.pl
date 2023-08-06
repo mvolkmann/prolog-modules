@@ -85,7 +85,7 @@ json(Pairs) -->
 json(Structure) -->
   "{",
   {
-    % TODO: Why are all these checks necessary?
+    % Rule out Structure values that are handled by other grammar rules.
     \+ atom_si(Structure),
     \+ chars_si(Structure), % verifies Structure is not chars
     \+ is_list_not_chars(Structure),

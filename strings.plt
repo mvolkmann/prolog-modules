@@ -19,6 +19,11 @@ filename_extension1(Expected, Actual) :-
   Actual = [Filename, Extension].
 
 predicate_namespace_name1(Expected, Actual) :-
+  Expected = ["", "bar"], % no namespace
+  predicate_namespace_name(bar, Namespace, Name),
+  Actual = [Namespace, Name].
+
+predicate_namespace_name2(Expected, Actual) :-
   Expected = ["foo", "bar"],
   predicate_namespace_name(foo:bar, Namespace, Name),
   Actual = [Namespace, Name].
@@ -28,6 +33,12 @@ repeat1(Expected, Actual) :-
   repeat(a, 0, Actual).
 
 split1(Expected, Actual) :-
+  Expected = ["foo", ""],
+  S = "foo",
+  split(S, ',', Prefix, Suffix),
+  Actual = [Prefix, Suffix].
+
+split2(Expected, Actual) :-
   Expected = ["foo", "bar,baz"],
   S = "foo,bar,baz",
   split(S, ',', Prefix, Suffix),
@@ -46,8 +57,10 @@ test :-
     user:chars_capitalized2,
     user:filename_extension1,
     user:predicate_namespace_name1,
+    user:predicate_namespace_name2,
     user:repeat1,
     user:split1,
+    user:split2,
     user:string_list
   ]),
   halt.

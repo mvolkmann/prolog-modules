@@ -2,6 +2,7 @@
 :- use_module(library(clpz)).
 :- use_module(library(format)).
 :- use_module(library(lists)).
+:- use_module(strings).
 
 :- meta_predicate goal_bool(0). % no arguments will be passed to Goal
 goal_bool(Goal, B) :- call(Goal) -> B = true; B = false.
@@ -10,7 +11,7 @@ message(Name, Expected, Actual, Msg) :-
   ( Actual == Expected ->
     Msg = ""
   ; phrase(format_(
-      "~w expected ~w but was ~w",
+      "~s expected ~w but was ~w",
       [Name, Expected, Actual]
     ), Msg)
   ).
@@ -21,7 +22,8 @@ report_count(Prefix, Count, Word) :-
 
 run_test(Test, Passed0, Passed) :-
   call(Test, Expected, Actual),
-  message(Test, Expected, Actual, Msg),
+  predicate_namespace_name(Test, _, Name),
+  message(Name, Expected, Actual, Msg),
   length(Msg, Length),
   (Length #= 0 ->
     Passed #= Passed0 + 1

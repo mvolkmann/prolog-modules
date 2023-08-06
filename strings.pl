@@ -27,7 +27,11 @@ filename_extension(S, Filename, Extension) :-
 
 predicate_namespace_name(Predicate, Namespace, Name) :-
   phrase(format_("~w", [Predicate]), S),
-  split(S, :, Namespace, Name).
+  if_(
+    memberd_t(':', S),
+    split(S, :, Namespace, Name),
+    (Namespace = "", Name = S)
+  ).
 
 % This creates a string containing a given character repeated N times.
 % The first two arguments must be instantiated (ground).
@@ -43,7 +47,11 @@ repeat_(Char, N, [Char|T]) :-
 
 % This approach does not use DCGs.
 split(S, Delimiter, Prefix, Suffix) :-
-  once(append(Prefix, [Delimiter|Suffix], S)).
+  if_(
+    memberd_t(Delimiter, S),
+    once(append(Prefix, [Delimiter|Suffix], S)),
+    (Prefix = S, Suffix = "")
+  ).
 
 % This relates a string to list of string parts
 % obtained by splitting on a given delimiter

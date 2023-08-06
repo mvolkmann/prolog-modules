@@ -74,24 +74,19 @@ json(List) -->
   },
   seq(Json),
   "]".
-  
-% TODO: This is not working yet!
+
 % To test this, enter something like the following and see the value of A.
-% V = foo-bar, phrase(json(V), C), atom_chars(A, C).
-% A = '"foo": "bar"'
+% V = foo-bar, phrase(json(V), J).
+% J = "\"foo\": \"bar\""
 % TODO: Check for list containing only pairs and generate a JSON object.
 json(Pair) -->
   {
     is_pair(Pair),
-    format("json Pair: Pair = ~w~n", [Pair]),
     Key-Value = Pair,
-    format("json Pair: Key = ~w~n", [Key]),
-    format("json Pair: Value = ~w~n", [Value]),
-    % value_json(Value, Json)
-    % once(phrase(json(Value), Json))
-    Json = '"barking"'
+    atom_chars(Key, KeyChars),
+    value_json(Value, Json)
   },
-  "\"", seq(Key), "\": ", seq(Json).
+  "\"", seq(KeyChars), "\": ", seq(Json).
 
 % To test this, enter something like the following and see the value of A.
 % V = a(b,c), phrase(json(V), C), atom_chars(A, C).

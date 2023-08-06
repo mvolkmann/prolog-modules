@@ -1,6 +1,4 @@
 :- module(json, [
-  is_list_not_chars/1,
-  is_pair/1,
   json/3,
   report/1,
   structure_functor/2
@@ -11,28 +9,12 @@
 :- use_module(library(lists)). % for maplist
 :- use_module(library(si)).
 :- use_module(strings).
+:- use_module(types).
 
 % Use this line to suppress logging.
 % log(_, _).
 % Use this line to enable logging.
 log(Format, Arguments) :- format(Format, Arguments).
-
-% Technically a double-quoted string is a list of character atoms,
-% but we want to consider that to be a string.
-% Otherwise we could use the `list_si` predicate.
-is_list_not_chars(X) :-
-  list_si(X),
-  ( X = [] ->
-    true
-  ; \+ chars_si(X)
-  ).
-
-is_pair(X) :-
-  functor(X, Name, Arity),
-  ( Name == (-), Arity == 2 ->
-    true
-  ; false
-  ).
 
 % To test this, enter something like the following and see the value of A.
 % V = foo, phrase(json(V), C), atom_chars(A, C).
@@ -64,6 +46,7 @@ json(Integer) -->
 % V = [foo, bar, baz], phrase(json(V), C), atom_chars(A, C).
 % A = '["foo","bar","baz"]'
 json(List) -->
+  { \+ is_list_of_pairs(List) },
   "[",
   {
     is_list_not_chars(List),
@@ -87,6 +70,16 @@ json(Pair) -->
     value_json(Value, Json)
   },
   "\"", seq(KeyChars), "\": ", seq(Json).
+
+% To test this, enter something like the following and see the value of A.
+% V = [red-stop, green-go, yellow-yield], phrase(json(V), C), atom_chars(A, C).
+% A = '{"red": "stop", "green": "go", "yellow": "yield"}'
+json(Pairs) -->
+  { is_list_of_pairs(Pairs) },
+  "{",
+  { values_json(Pairs, Json) },
+  seq(Json),
+  "}".
 
 % To test this, enter something like the following and see the value of A.
 % V = a(b,c), phrase(json(V), C), atom_chars(A, C).
@@ -157,5 +150,5 @@ values_json(Values, Json) :-
   maplist(value_json, Values, Jsons),
   log("values_json: Jsons = ~w~n", [Jsons]),
   % Create string that is a comma-separated list of the JSON values.
-  string_list(Json, ', ', Jsons),
+  string_list(Json, ',', Jsons),
   log("values_json: Json = ~w~n", [Json]).

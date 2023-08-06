@@ -1,12 +1,14 @@
 :- module(strings, [
     chars_capitalized/2,
     filename_extension/3,
+    predicate_namespace_name/3,
     repeat/3,
     split/4,
     string_list/3
   ]).
 
 :- use_module(library(charsio)).
+:- use_module(library(dcgs)).
 :- use_module(library(format)).
 :- use_module(library(lists)).
 :- use_module(library(reif)). % for if_ and memberd_t
@@ -22,6 +24,10 @@ chars_capitalized([H1|T], Cap):-
 % gives F = "foo", E = "bar"
 filename_extension(S, Filename, Extension) :-
   split(S, ., Filename, Extension).
+
+predicate_namespace_name(Predicate, Namespace, Name) :-
+  phrase(format_("~w", [Predicate]), S),
+  split(S, :, Namespace, Name).
 
 % This creates a string containing a given character repeated N times.
 % The first two arguments must be instantiated (ground).

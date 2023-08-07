@@ -29,6 +29,21 @@ fill3(Expected, Actual) :-
   Expected = [a, a, a],
   fill(3, a, Actual).
 
+first1(Expected, Actual) :-
+  Expected = [],
+  L = [],
+  first(var, L, Actual).
+
+first2(Expected, Actual) :-
+  Expected = [],
+  L = [foo, bar, baz],
+  first(var, L, Actual).
+
+first3(Expected, Actual) :-
+  Expected = Bar,
+  L = [foo, Bar, baz],
+  first(var, L, Actual).
+
 some1(Expected, Actual) :-
   Expected = true,
   L = [3, 6, 9],
@@ -78,6 +93,9 @@ test :-
     fill1,
     fill2,
     fill3,
+    first1,
+    first2,
+    first3,
     some1,
     some2,
     list_last1,

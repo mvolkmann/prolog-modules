@@ -1,6 +1,18 @@
 % To run only these tests, enter `scry -g test,halt types.plt`
 % where `scry` is your alias for `scryer-prolog`.
 
+:- module(types_test, [
+  is_list_not_chars1/2,
+  is_list_not_chars2/2,
+  is_list_not_chars3/2,
+  is_list_of_pairs1/2,
+  is_list_of_pairs2/2,
+  is_list_of_pairs3/2,
+  is_pair1/2,
+  is_pair2/2,
+  test/0
+]).
+
 :- use_module(unit_test).
 :- initialization(consult(types)).
 

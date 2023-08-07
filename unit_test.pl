@@ -6,6 +6,8 @@
 :- use_module(library(lists)).
 :- use_module(strings).
 
+% :- dynamic(user:test/0).
+
 all :-
   directory_files(".", Files),
   sort(Files, Sorted),
@@ -24,7 +26,8 @@ process(File) :-
     format("running ~s ...~n", [File]),
     atom_chars(Atom, File),
     consult(Atom),
-    (call(user:test) -> true; true)
+    call(user:test)
+    % retract(user:test)
   ; true
   ).
 
@@ -67,3 +70,4 @@ run_tests(Module:Tests) :-
   ; report_count("", Failed, "failed")
   ).
 
+test :- true.

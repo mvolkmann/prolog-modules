@@ -37,6 +37,20 @@ list_last2(Expected, Actual) :-
   Expected = baz,
   list_last([foo, bar, baz], Actual).
 
+list_matching1(Expected, Actual) :-
+  Expected = [],
+  list_matching([], var, Actual).
+
+list_matching2(Expected, Actual) :-
+  Expected = [],
+  L = [foo, bar, baz],
+  list_matching(L, var, Actual).
+
+list_matching3(Expected, Actual) :-
+  Expected = [Bar, Qux],
+  L = [foo, Bar, baz, Qux],
+  list_matching(L, var, Actual).
+
 list_pred_first1(Expected, Actual) :-
   Expected = [],
   L = [],
@@ -95,6 +109,9 @@ test :-
     fill3,
     list_last1,
     list_last2,
+    list_matching1,
+    list_matching2,
+    list_matching3,
     list_pred_first1,
     list_pred_first2,
     list_pred_first3,

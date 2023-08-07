@@ -2,6 +2,7 @@
   every/2,
   fill/3,
   list_last/2,
+  list_matching/3,
   list_pred_first/3,
   list_without/3,
   replace/4,
@@ -20,6 +21,14 @@ every(Predicate, List) :- maplist(Predicate, List).
 clone(X, X).
 fill(N, E, L) :- length(L, N), maplist(clone(E), L).
 
+% This relates the list L0 to the list L
+% which contains all elements for which predicate P holds.
+check(P, E, B) :-
+  Goal =.. [P, E],
+  ( Goal -> B = true; B = false).
+
+list_matching(L0, P, L) :- tfilter(check(P), L0, L).
+
 % This relates a list and a predicate to the
 % first element in the list that satisfies the predicate.
 list_pred_first([], _, []).
@@ -35,9 +44,9 @@ list_last(List, Last) :-
   length(List, Length),
   nth1(Length, List, Last).
 
-% This relates the list Ls0 to the list Ls
+% This relates the list L0 to the list L
 % which does not contain any elements matching E.
-list_without(Ls0, E, Ls) :- tfilter(dif(E), Ls0, Ls).
+list_without(L0, E, L) :- tfilter(dif(E), L0, L).
 
 % This creates a new list from an existing list by copying it
 % and replacing the element at a given zero-based index with a new value.

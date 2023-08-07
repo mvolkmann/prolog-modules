@@ -32,10 +32,10 @@ is_pair2(Expected, Actual) :-
 
 test :-
   run_tests([
-    user:is_list_of_pairs1,
-    user:is_list_of_pairs2,
-    user:is_list_of_pairs3,
-    user:is_pair1,
-    user:is_pair2
+    is_list_of_pairs1,
+    is_list_of_pairs2,
+    is_list_of_pairs3,
+    is_pair1,
+    is_pair2
   ]),
   halt.

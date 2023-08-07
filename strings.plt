@@ -78,19 +78,19 @@ test :-
   run_tests([
     % TODO: Is there a way to automate adding the user namespace to these?
     % TODO: Is there a way to make user be the default namespace?
-    user:chars_capitalized1,
-    user:chars_capitalized2,
-    user:filename_extension1,
-    user:join1,
-    user:join2,
-    user:join3,
-    user:predicate_namespace_name1,
-    user:predicate_namespace_name2,
-    user:repeat1,
-    user:split1,
-    user:split2,
-    user:string_list1,
-    user:string_list2,
-    user:string_list3
+    chars_capitalized1,
+    chars_capitalized2,
+    filename_extension1,
+    join1,
+    join2,
+    join3,
+    predicate_namespace_name1,
+    predicate_namespace_name2,
+    repeat1,
+    split1,
+    split2,
+    string_list1,
+    string_list2,
+    string_list3
   ]),
   halt.

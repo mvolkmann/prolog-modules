@@ -65,18 +65,18 @@ replace3(Expected, Actual) :-
 
 test :-
   run_tests([
-    user:every1,
-    user:every2,
-    user:fill1,
-    user:fill2,
-    user:fill3,
-    user:some1,
-    user:some2,
-    user:list_without1,
-    user:list_without2,
-    user:list_without3,
-    user:replace1,
-    user:replace2,
-    user:replace3
+    every1,
+    every2,
+    fill1,
+    fill2,
+    fill3,
+    some1,
+    some2,
+    list_without1,
+    list_without2,
+    list_without3,
+    replace1,
+    replace2,
+    replace3
   ]),
   halt.

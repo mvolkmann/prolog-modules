@@ -38,12 +38,12 @@ test_structure(Expected, Actual) :-
 
 test :-
   run_tests([
-    user:test_atom,
-    user:test_integer,
-    user:test_pair,
-    user:test_list,
-    user:test_list_of_pairs,
-    user:test_string,
-    user:test_structure
+    test_atom,
+    test_integer,
+    test_pair,
+    test_list,
+    test_list_of_pairs,
+    test_string,
+    test_structure
   ]),
   halt.

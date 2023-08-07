@@ -21,8 +21,8 @@ report_count(Prefix, Count, Word) :-
   (Count #= 1 -> Noun = "test"; Noun = "tests"),
   format("~s~d ~s ~s~n", [Prefix, Count, Noun, Word]).
 
-run_test(Test, Passed0, Passed) :-
-  call(Test, Expected, Actual),
+run_test(Module, Test, Passed0, Passed) :-
+  call(Module:Test, Expected, Actual),
   predicate_namespace_name(Test, _, Name),
   message(Name, Expected, Actual, Msg),
   length(Msg, Length),
@@ -32,8 +32,9 @@ run_test(Test, Passed0, Passed) :-
     Passed #= Passed0
   ).
 
-run_tests(Tests) :-
-  foldl(run_test, Tests, 0, Passed),
+:- meta_predicate run_tests(:).
+run_tests(Module:Tests) :-
+  foldl(run_test(Module), Tests, 0, Passed),
   length(Tests, Length),
   (Passed #= Length -> Prefix = "All "; Prefix = ""),
   report_count(Prefix, Passed, "passed"),

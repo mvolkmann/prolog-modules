@@ -5,6 +5,7 @@
     predicate_namespace_name/3,
     repeat/3,
     split/4,
+    starts_upper/1,
     string_list/3
   ]).
 
@@ -13,6 +14,7 @@
 :- use_module(library(format)).
 :- use_module(library(lists)).
 :- use_module(library(reif)). % for if_ and memberd_t
+:- use_module(library(si)).
 
 chars_capitalized([], []).
 chars_capitalized([H1|T], Cap):-
@@ -53,6 +55,11 @@ split(S, Delimiter, Prefix, Suffix) :-
     once(append(Prefix, [Delimiter|Suffix], S)),
     (Prefix = S, Suffix = "")
   ).
+
+starts_upper(S) :-
+  chars_si(S),
+  [H|_] = S,
+  char_type(H, upper). % verifies Structure is not chars
 
 % string_list below only handles single character atom delimiters.
 % This handles string delimiters of any length.

@@ -59,6 +59,21 @@ split2(Expected, Actual) :-
   split(S, ',', Prefix, Suffix),
   Actual = [Prefix, Suffix].
 
+starts_upper1(Expected, Actual) :-
+  Expected = false,
+  S = "",
+  goal_bool(strings:starts_upper(S), Actual).
+
+starts_upper2(Expected, Actual) :-
+  Expected = false,
+  S = "foo",
+  goal_bool(strings:starts_upper(S), Actual).
+
+starts_upper3(Expected, Actual) :-
+  Expected = true,
+  S = "Foo",
+  goal_bool(strings:starts_upper(S), Actual).
+
 string_list1(Expected, Actual) :-
   Expected = [],
   S = "",
@@ -87,6 +102,9 @@ test :-
     repeat1,
     split1,
     split2,
+    starts_upper1,
+    starts_upper2,
+    starts_upper3,
     string_list1,
     string_list2,
     string_list3

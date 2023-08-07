@@ -24,10 +24,4 @@ is_list_of_pairs(X) :-
   Length > 0,
   every(is_pair, X).
 
-is_pair(X) :-
-  functor(X, Name, Arity),
-  ( Name == (-), Arity == 2 ->
-    true
-  ; false
-  ).
-
+is_pair(_-_).

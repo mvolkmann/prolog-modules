@@ -33,6 +33,8 @@ run_test(Module, Test, Passed0, Passed) :-
   ).
 
 :- meta_predicate run_tests(:).
+% Module will capture the namespace of "Tests"
+% which when unspecified will be "user".
 run_tests(Module:Tests) :-
   foldl(run_test(Module), Tests, 0, Passed),
   length(Tests, Length),

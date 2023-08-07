@@ -18,6 +18,9 @@ log(_, _).
 % To test this, enter something like the following and see the value of A.
 % V = foo, phrase(json(V), C), atom_chars(A, C).
 % A = '"foo"'
+% We do not want quotes around the Boolean values true and false.
+json(true) --> "true".
+json(false) --> "false".
 json(Atom) -->
   "\"",
   {

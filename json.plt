@@ -10,6 +10,16 @@ atom1(Expected, Actual) :-
   V = foo,
   phrase(json(V), Actual).
 
+atom2(Expected, Actual) :-
+  Expected = "true",
+  V = true,
+  phrase(json(V), Actual).
+
+atom3(Expected, Actual) :-
+  Expected = "false",
+  V = false,
+  phrase(json(V), Actual).
+
 integer1(Expected, Actual) :-
   Expected = "123",
   V = 123,
@@ -47,6 +57,8 @@ structure1(Expected, Actual) :-
 test :-
   run_tests([
     atom1,
+    atom2,
+    atom3,
     integer1,
     pair1,
     list1,

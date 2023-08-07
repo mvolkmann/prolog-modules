@@ -39,6 +39,14 @@ some2(Expected, Actual) :-
   L = [3, 5, 9],
   goal_bool(list_util:some(is_even, L), Actual).
 
+list_last1(Expected, Actual) :-
+  Expected = [],
+  list_last([], Actual).
+
+list_last2(Expected, Actual) :-
+  Expected = baz,
+  list_last([foo, bar, baz], Actual).
+
 list_without1(Expected, Actual) :-
   Expected = [foo, baz],
   list_without([foo, bar, baz], bar, Actual).
@@ -72,6 +80,8 @@ test :-
     fill3,
     some1,
     some2,
+    list_last1,
+    list_last2,
     list_without1,
     list_without2,
     list_without3,

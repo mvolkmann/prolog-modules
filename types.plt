@@ -37,5 +37,4 @@ test :-
     is_list_of_pairs3,
     is_pair1,
     is_pair2
-  ]),
-  halt.
+  ]).

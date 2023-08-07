@@ -78,5 +78,4 @@ test :-
     replace1,
     replace2,
     replace3
-  ]),
-  halt.
+  ]).

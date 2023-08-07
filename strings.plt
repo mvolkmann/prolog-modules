@@ -76,8 +76,6 @@ string_list3(Expected, Actual) :-
 
 test :-
   run_tests([
-    % TODO: Is there a way to automate adding the user namespace to these?
-    % TODO: Is there a way to make user be the default namespace?
     chars_capitalized1,
     chars_capitalized2,
     filename_extension1,
@@ -92,5 +90,4 @@ test :-
     string_list1,
     string_list2,
     string_list3
-  ]),
-  halt.
+  ]).

@@ -45,5 +45,4 @@ test :-
     test_list_of_pairs,
     test_string,
     test_structure
-  ]),
-  halt.
+  ]).

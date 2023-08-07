@@ -1,11 +1,32 @@
-:- module(unit_test, [goal_bool/2, run_tests/1]).
+% To run all unit tests in this directory, enter `scry -g all unit_test.pl`
+:- module(unit_test, [all/0, goal_bool/2, run_tests/1]).
 :- use_module(library(clpz)).
+:- use_module(library(files)).
 :- use_module(library(format)).
 :- use_module(library(lists)).
 :- use_module(strings).
 
+all :-
+  directory_files(".", Files),
+  sort(Files, Sorted),
+  maplist(process, Sorted),
+  halt.
+
 :- meta_predicate goal_bool(0). % no arguments will be passed to Goal
 goal_bool(Goal, B) :- call(Goal) -> B = true; B = false.
+
+is_test(File) :-
+  filename_extension(File, _, Extension),
+  Extension == "plt".
+
+process(File) :-
+  ( is_test(File) ->
+    format("running ~s ...~n", [File]),
+    atom_chars(Atom, File),
+    consult(Atom),
+    (call(user:test) -> true; true)
+  ; true
+  ).
 
 message(Name, Expected, Actual, Msg) :-
   ( Actual == Expected ->

@@ -1,4 +1,4 @@
-% To run this, enter `scry -g test types.plt`
+% To run only these tests, enter `scry -g test,halt types.plt`
 % where `scry` is your alias for `scryer-prolog`.
 
 :- use_module(unit_test).

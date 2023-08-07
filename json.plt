@@ -1,3 +1,6 @@
+% To run only these tests, enter `scry -g test,halt json.plt`
+% where `scry` is your alias for `scryer-prolog`.
+
 :- use_module(library(format)).
 :- use_module(unit_test).
 :- initialization(consult(json)).

@@ -1,8 +1,8 @@
 :- module(list_util, [
   every/2,
   fill/3,
-  first/3,
   list_last/2,
+  list_pred_first/3,
   list_without/3,
   replace/4,
   some/2
@@ -20,14 +20,14 @@ every(Predicate, List) :- maplist(Predicate, List).
 clone(X, X).
 fill(N, E, L) :- length(L, N), maplist(clone(E), L).
 
-% This relates a predicate and a list to the
+% This relates a list and a predicate to the
 % first element in the list that satisfies the predicate.
-first(_, [], []).
-first(Pred, [H|T], Element) :-
+list_pred_first([], _, []).
+list_pred_first([H|T], Pred, Element) :-
   Goal =.. [Pred, H],
   ( call(Goal) ->
     Element = H
-  ; first(Pred, T, Element)
+  ; list_pred_first(T, Pred, Element)
   ).
 
 list_last([], []).

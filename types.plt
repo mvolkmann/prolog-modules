@@ -4,6 +4,21 @@
 :- use_module(unit_test).
 :- initialization(consult(types)).
 
+is_list_not_chars1(Expected, Actual) :-
+  Expected = true,
+  V = [],
+  goal_bool(types:is_list_not_chars(V), Actual).
+
+is_list_not_chars2(Expected, Actual) :-
+  Expected = true,
+  V = [foo, bar, baz],
+  goal_bool(types:is_list_not_chars(V), Actual).
+
+is_list_not_chars3(Expected, Actual) :-
+  Expected = false,
+  V = [a, b, c],
+  goal_bool(types:is_list_not_chars(V), Actual).
+
 is_list_of_pairs1(Expected, Actual) :-
   Expected = false,
   V = [],
@@ -32,6 +47,9 @@ is_pair2(Expected, Actual) :-
 
 test :-
   run_tests([
+    is_list_not_chars1,
+    is_list_not_chars2,
+    is_list_not_chars3,
     is_list_of_pairs1,
     is_list_of_pairs2,
     is_list_of_pairs3,

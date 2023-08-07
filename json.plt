@@ -2,47 +2,53 @@
 :- use_module(unit_test).
 :- initialization(consult(json)).
 
-test_atom(Expected, Actual) :-
+atom1(Expected, Actual) :-
   Expected = "\"foo\"",
   V = foo,
   phrase(json(V), Actual).
 
-test_integer(Expected, Actual) :-
+integer1(Expected, Actual) :-
   Expected = "123",
   V = 123,
   phrase(json(V), Actual).
 
-test_list(Expected, Actual) :-
+list1(Expected, Actual) :-
+  Expected = "[]",
+  V = [],
+  phrase(json(V), Actual).
+
+list2(Expected, Actual) :-
   Expected = "[\"foo\", \"bar\", \"baz\"]",
   V = [foo, bar, baz],
   phrase(json(V), Actual).
 
-test_list_of_pairs(Expected, Actual) :-
+list_of_pairs(Expected, Actual) :-
   Expected = "{\"red\": \"stop\", \"green\": \"go\", \"yellow\": \"yield\"}",
   V = [red-stop, green-go, yellow-yield],
   phrase(json(V), Actual).
 
-test_pair(Expected, Actual) :-
+pair1(Expected, Actual) :-
   Expected = "\"red\": \"stop\"",
   phrase(json(red-stop), Actual).
 
-test_string(Expected, Actual) :-
+string1(Expected, Actual) :-
   Expected = "\"some text\"",
   V = "some text",
   phrase(json(V), Actual).
 
-test_structure(Expected, Actual) :-
+structure1(Expected, Actual) :-
   Expected = "{\"_functor\": \"a/2\", \"_args\": [\"b\", \"c\"]}",
   V = a(b, c),
   phrase(json(V), Actual).
 
 test :-
   run_tests([
-    test_atom,
-    test_integer,
-    test_pair,
-    test_list,
-    test_list_of_pairs,
-    test_string,
-    test_structure
+    atom1,
+    integer1,
+    pair1,
+    list1,
+    list2,
+    list_of_pairs,
+    string1,
+    structure1
   ]).

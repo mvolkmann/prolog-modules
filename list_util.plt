@@ -7,12 +7,11 @@
   fill1/2,
   fill2/2,
   fill3/2,
+  goal_bool1/2,
+  goal_bool2/2,
   is_even/1,
   list_last1/2,
   list_last2/2,
-  list_matching1/2,
-  list_matching2/2,
-  list_matching3/2,
   list_pred_first1/2,
   list_pred_first2/2,
   list_pred_first3/2,
@@ -55,6 +54,16 @@ fill3(Expected, Actual) :-
   Expected = [a, a, a],
   list_util:fill(3, a, Actual).
 
+goal_bool1(Expected, Actual) :-
+  Expected = true,
+  Goal = (1 < 2), % success
+  goal_bool(Goal, Actual).
+
+goal_bool2(Expected, Actual) :-
+  Expected = false,
+  Goal = (1 > 2), % failure
+  goal_bool(Goal, Actual).
+
 list_last1(Expected, Actual) :-
   Expected = [],
   list_util:list_last([], Actual).
@@ -62,20 +71,6 @@ list_last1(Expected, Actual) :-
 list_last2(Expected, Actual) :-
   Expected = baz,
   list_util:list_last([foo, bar, baz], Actual).
-
-list_matching1(Expected, Actual) :-
-  Expected = [],
-  list_util:list_matching([], var, Actual).
-
-list_matching2(Expected, Actual) :-
-  Expected = [],
-  L = [foo, bar, baz],
-  list_util:list_matching(L, var, Actual).
-
-list_matching3(Expected, Actual) :-
-  Expected = [Bar, Qux],
-  L = [foo, Bar, baz, Qux],
-  list_util:list_matching(L, var, Actual).
 
 list_pred_first1(Expected, Actual) :-
   Expected = [],
@@ -133,11 +128,10 @@ test :-
     fill1,
     fill2,
     fill3,
+    goal_bool1,
+    goal_bool2,
     list_last1,
     list_last2,
-    list_matching1,
-    list_matching2,
-    list_matching3,
     list_pred_first1,
     list_pred_first2,
     list_pred_first3,

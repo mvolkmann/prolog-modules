@@ -27,6 +27,12 @@ check(P, E, B) :-
   Goal =.. [P, E],
   ( Goal -> B = true; B = false).
 
+% This relates a list to its last element.
+list_last([], []).
+list_last(List, Last) :-
+  length(List, Length),
+  nth1(Length, List, Last).
+
 list_matching(L0, P, L) :- tfilter(check(P), L0, L).
 
 % This relates a list and a predicate to the
@@ -38,11 +44,6 @@ list_pred_first([H|T], Pred, Element) :-
     Element = H
   ; list_pred_first(T, Pred, Element)
   ).
-
-list_last([], []).
-list_last(List, Last) :-
-  length(List, Length),
-  nth1(Length, List, Last).
 
 % This relates the list L0 to the list L
 % which does not contain any elements matching E.

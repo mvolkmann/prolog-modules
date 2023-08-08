@@ -1,3 +1,10 @@
+/*
+I tried to use the Scryer serialization/json library,
+but that requires telling it the type of everything to be serialized
+rather than it determining that on its own like the implementation here does.
+Also, I can't get uses of its json_chars DCG goal to terminate.
+See https://github.com/mthom/scryer-prolog/discussions/1942.
+*/
 :- module(json, [
   json/3,
   structure_functor/2

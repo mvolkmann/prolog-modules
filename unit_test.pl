@@ -14,6 +14,8 @@ all :-
   maplist(process, Sorted),
   halt.
 
+% This sets Bool to true or false based on whether Goal succeeds or fails.
+% Many tests need this functionality.
 :- meta_predicate goal_bool(0). % no arguments will be passed to Goal
 goal_bool(Goal, B) :- call(Goal) -> B = true; B = false.
 

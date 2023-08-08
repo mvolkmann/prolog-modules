@@ -1,7 +1,6 @@
 :- module(list_util, [
   every/2,
   fill/3,
-  goal_bool/2,
   list_last/2,
   list_pred_first/3,
   list_without/3,
@@ -20,10 +19,6 @@ every(Predicate, List) :- maplist(Predicate, List).
 % (from Discord by @adamcrussell).
 clone(X, X).
 fill(N, E, L) :- length(L, N), maplist(clone(E), L).
-
-% This is often needed with using predicates in the "reif" library.
-% It sets Bool to true or false based on whether Goal succeeds or fails.
-goal_bool(Goal, Bool) :- Goal -> Bool = true; Bool = false.
 
 % This relates a list to its last element.
 list_last([], []).

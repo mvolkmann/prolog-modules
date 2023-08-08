@@ -7,8 +7,6 @@
   fill1/2,
   fill2/2,
   fill3/2,
-  goal_bool1/2,
-  goal_bool2/2,
   is_even/1,
   list_last1/2,
   list_last2/2,
@@ -53,16 +51,6 @@ fill2(Expected, Actual) :-
 fill3(Expected, Actual) :-
   Expected = [a, a, a],
   list_util:fill(3, a, Actual).
-
-goal_bool1(Expected, Actual) :-
-  Expected = true,
-  Goal = (1 < 2), % success
-  goal_bool(Goal, Actual).
-
-goal_bool2(Expected, Actual) :-
-  Expected = false,
-  Goal = (1 > 2), % failure
-  goal_bool(Goal, Actual).
 
 list_last1(Expected, Actual) :-
   Expected = [],
@@ -128,8 +116,6 @@ test :-
     fill1,
     fill2,
     fill3,
-    goal_bool1,
-    goal_bool2,
     list_last1,
     list_last2,
     list_pred_first1,

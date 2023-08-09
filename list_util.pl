@@ -29,12 +29,13 @@ list_last(List, Last) :-
 % This relates a list and a predicate to the
 % first element in the list that satisfies the predicate.
 list_pred_first([], _, []).
+list_pred_first([H|_], Pred, H) :-
+  Goal =.. [Pred, H],
+  call(Goal).
 list_pred_first([H|T], Pred, Element) :-
   Goal =.. [Pred, H],
-  ( call(Goal) ->
-    Element = H
-  ; list_pred_first(T, Pred, Element)
-  ).
+  \+ call(Goal),
+  list_pred_first(T, Pred, Element).
 
 % This relates the list L0 to the list L
 % which does not contain any elements matching E.

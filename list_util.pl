@@ -30,12 +30,16 @@ list_last(List, Last) :-
 % first element in the list that satisfies the predicate.
 list_pred_first([], _, []).
 list_pred_first([H|_], Pred, H) :-
-  Goal =.. [Pred, H],
-  call(Goal).
+  call(Pred, H).
 list_pred_first([H|T], Pred, Element) :-
-  Goal =.. [Pred, H],
-  \+ call(Goal),
+  \+ call(Pred, H),
   list_pred_first(T, Pred, Element).
+/* This version was suggested at the following link,
+ * but my tests for this predicate fail with this version.
+ * https://github.com/mthom/scryer-prolog/discussions/1958#discussioncomment-6675368
+list_pred_first([H|T], Pred, R) :-
+    if_(call(Pred, H), R = H, list_pred_first(T, Pred, R)).
+*/
 
 % This relates the list L0 to the list L
 % which does not contain any elements matching E.

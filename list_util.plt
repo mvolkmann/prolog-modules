@@ -1,7 +1,7 @@
 % To run only these tests, enter `scry -g test,halt list_util.plt`
 % where `scry` is your alias for `scryer-prolog`.
 
-:- module(list_util_test, [
+:- module(lut, [ % lut is short for list util test
   every1/2,
   every2/2,
   fill1/2,
@@ -13,6 +13,9 @@
   list_pred_first1/2,
   list_pred_first2/2,
   list_pred_first3/2,
+  list_predr_first1/2,
+  list_predr_first2/2,
+  list_predr_first3/2,
   list_without1/2,
   list_without2/2,
   list_without3/2,
@@ -63,17 +66,36 @@ list_last2(Expected, Actual) :-
 list_pred_first1(Expected, Actual) :-
   Expected = [],
   L = [],
-  list_util:list_pred_first(L, var, Actual).
+  list_util:list_pred_first(L, lut:var, Actual).
 
 list_pred_first2(Expected, Actual) :-
   Expected = [],
   L = [foo, bar, baz],
-  list_util:list_pred_first(L, var, Actual).
+  list_util:list_pred_first(L, lut:var, Actual).
 
 list_pred_first3(Expected, Actual) :-
   Expected = Bar,
   L = [foo, Bar, baz],
-  list_util:list_pred_first(L, var, Actual).
+  list_util:list_pred_first(L, lut:var, Actual).
+
+% This reifies the var predicate.
+var(X, true) :- var(X).
+var(X, false) :- nonvar(X).
+
+list_predr_first1(Expected, Actual) :-
+  Expected = [],
+  L = [],
+  list_util:list_predr_first(L, lut:var, Actual).
+
+list_predr_first2(Expected, Actual) :-
+  Expected = [],
+  L = [foo, bar, baz],
+  list_util:list_predr_first(L, lut:var, Actual).
+
+list_predr_first3(Expected, Actual) :-
+  Expected = Bar,
+  L = [foo, Bar, baz],
+  list_util:list_predr_first(L, lut:var, Actual).
 
 list_without1(Expected, Actual) :-
   Expected = [foo, baz],
@@ -121,6 +143,9 @@ test :-
     list_pred_first1,
     list_pred_first2,
     list_pred_first3,
+    list_predr_first1,
+    list_predr_first2,
+    list_predr_first3,
     list_without1,
     list_without2,
     list_without3,

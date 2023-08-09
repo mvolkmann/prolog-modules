@@ -12,11 +12,7 @@
 % but we want to consider that to be a string.
 % Otherwise we could use the `list_si` predicate.
 is_list_not_chars(X) :-
-  list_si(X),
-  ( X = [] ->
-    true
-  ; \+ chars_si(X)
-  ).
+  list_si(X), (X = []; \+ chars_si(X)).
 
 is_list_of_pairs(X) :-
   list_si(X),

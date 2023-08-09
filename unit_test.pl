@@ -14,10 +14,14 @@ all :-
   maplist(process, Sorted),
   halt.
 
+count_noun(1, "test").
+count_noun(_, "tests").
+
 % This sets Bool to true or false based on whether Goal succeeds or fails.
 % Many tests need this functionality.
 :- meta_predicate goal_bool(0). % no arguments will be passed to Goal
-goal_bool(Goal, B) :- call(Goal) -> B = true; B = false.
+goal_bool(Goal, true) :- call(Goal).
+goal_bool(Goal, false) :- \+ call(Goal).
 
 is_test(File) :-
   filename_extension(File, _, Extension),
@@ -44,7 +48,7 @@ message(Name, Expected, Actual, Msg) :-
   ).
 
 report_count(Prefix, Count, Word) :-
-  (Count #= 1 -> Noun = "test"; Noun = "tests"),
+  count_noun(Count, Noun),
   format("~s~d ~s ~s~n", [Prefix, Count, Noun, Word]).
 
 run_test(Module, Test, Passed0, Passed) :-

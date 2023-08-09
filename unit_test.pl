@@ -47,6 +47,9 @@ message(Name, Expected, Actual, Msg) :-
     ), Msg)
   ).
 
+passed_prefix(Passed, Length, "All ") :- Passed #= Length.
+passed_prefix(Passed, Length, "") :- Passed #\= Length.
+
 report_count(Prefix, Count, Word) :-
   count_noun(Count, Noun),
   format("~s~d ~s ~s~n", [Prefix, Count, Noun, Word]).
@@ -68,7 +71,7 @@ run_test(Module, Test, Passed0, Passed) :-
 run_tests(Module:Tests) :-
   foldl(run_test(Module), Tests, 0, Passed),
   length(Tests, Length),
-  (Passed #= Length -> Prefix = "All "; Prefix = ""),
+  passed_prefix(Passed, Length, Prefix),
   report_count(Prefix, Passed, "passed"),
   Failed #= Length - Passed,
   (Failed #= 0 ->
